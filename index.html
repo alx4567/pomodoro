@@ -1,16 +1,27 @@
-<Doctype! HTML>
-
+<document! html>
     <html>
-
     <head>
-        
-        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="style.css">
     </head>
-    
     <body>
-        <h1 id="pom-time"></h1>
-        <h1 id="break"></h1>
-        <script src="main.js"></script>
-    </body>
+        <div id="session">
+            <h2><span id="sessionUp" class="fa fa-chevron-up"></span> <span id="userSession">25</span> <button id="sessionDown" class="fa fa-chevron-down"></button></h2>
+        </div>
+        <div id="break">
+            <h2><span id="breakUp" class="fa fa-chevron-up"></span> <span id="userBreak">5</span> <span id="breakDown" class="fa fa-chevron-down"></span></h2>
+        </div>
 
-</html>
+        <div id="display">
+            <h1 id='header'>Session</h1>
+            <p id='timer'>25:00</p>
+        
+            <button id="start">Start</button>
+            <button id="pause">Pause</button>
+            <button id="stop">Stop</button>
+            <script src="main.js" ></script>
+        </div>
+    </body>
+    
+    </html>
