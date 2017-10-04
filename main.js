@@ -48,11 +48,6 @@ $(document).ready(function(){
     var interval = setInterval(countDown, 1000);
     };
 
-
-
-
-
-
     $(document).ready(function(){
         $("#start").click(function(){
             if (pause === 0) {
