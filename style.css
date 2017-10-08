@@ -1,11 +1,122 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    width: 640px; height: 377px;
+    background-color: #242c37;
+    color: #fff;
+    margin: 25px auto;
+    font-family: 'Exo 2', sans-serif;
+}
+
+header {
+    width: 100%; height: 5px;
+}
+
+#toggleSwitches {
+    width: 100%; height: 95px;
+    background-color: #323f4e;
+    font-weight: 100;
+    margin-top: 106px;
+}
+
+#session {
+    height: 95px;
+    margin: 15px 350px 0 50px;
+    display: inline-block
+}
+
+#break {
+    display: inline-block;
+    margin-top: 15px;
+}
+
+#userSession, #userBreak {
+    font-size: 48px;
+}
+
+button {
+    background: none;
+    border: none;
+    color: #fff;
+}
+
+#sessionUp, #sessionDown, #breakUp, #breakDown {
+    vertical-align: top;
+    margin-top: 22px;
+}
+
+
+
 #session, #break {
     float: left;
 }
 
-#userSession, #userBreak {
-    font-size: 40px;
+#display {
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    margin: -185px auto 0 auto;
+    text-align: center;
+    display: inline-block;
+    border: 15px solid #323f4e;
 }
 
-#display {
-    clear: left;
+#display h1 {
+    font-size: 30px;
+    margin: 25px 0 0 0;
+}
+
+#display p {
+    font-size: 72px;
+    margin: 0;
+    line-height: 80px;
+}
+
+#bottomText {
+    margin: 0; padding:0;
+    line-height: 8px;
+}
+
+.session {
+    background-color: rgb(3, 159, 215);
+    background: -webkit-linear-gradient(left, rgb(3, 159, 215) , rgb(36, 167, 161)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, rgb(3, 159, 215) , rgb(36, 167, 161)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, rgb(3, 159, 215) , rgb(36, 167, 161)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, rgb(3, 159, 215) , rgb(36, 167, 161)); /* Standard syntax */
+}
+
+.work {
+    background-color: rgb(220, 37, 59);
+    background: -webkit-linear-gradient(left, rgb(220, 37, 59) , rgb(234, 88, 19)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, rgb(220, 37, 59) , rgb(234, 88, 19)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, rgb(220, 37, 59)) , rgb(234, 88, 19)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, rgb(220, 37, 59) , rgb(234, 88, 19)); /* Standard syntax */
+}
+
+.current {
+    color: rgba(255, 255, 255, 1)
+} 
+
+.next {
+    color: rgba(255, 255, 255, .2)
+} 
+
+nav {
+   margin-top: 32px; 
+}
+
+#line {
+    height: 5px; 
+}
+
+#start, #pause, #stop, #refresh {
+   background-color: #323f4e; 
+   padding: 15px;
+   font-size: 18px;
+   font-family: 'Exo 2';
 }
