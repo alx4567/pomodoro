@@ -81,12 +81,12 @@ h3 {
 #display p {
     font-size: 72px;
     margin: 0;
-    line-height: 80px;
+    line-height: 90px;
 }
 
 #bottomText {
     margin: 0; padding:0;
-    line-height: 8px;
+    line-height:0;
 }
 
 .session {
