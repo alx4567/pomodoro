@@ -30,6 +30,7 @@ $(document).ready(function(){
                     pomodoro( parseInt(user_break) * 60 )
                     $('header').removeClass("session").addClass('work');
                     $('#display').removeClass("session").addClass('work');
+                    $('#line').removeClass("session").addClass('work');
                     $('#topText').removeClass("current").addClass('next');
                     $('#bottomText').removeClass("next").addClass('current');
                 } else {
@@ -37,6 +38,7 @@ $(document).ready(function(){
                     pomodoro( parseInt(user_session) * 60 )
                     $('header').removeClass('work').addClass('session');
                     $('#display').removeClass("work").addClass('session');
+                    $('#line').removeClass("work").addClass('session');
                     $('#topText').removeClass("next").addClass('current');
                     $('#bottomText').removeClass("current").addClass('next');
                 }
@@ -48,7 +50,12 @@ $(document).ready(function(){
                 clearInterval(interval);
                 running = false
                 break_switch = 0
-                timer.innerHTML = $('#userSession').html() + ':00'  
+                timer.innerHTML = $('#userSession').html() + ':00'
+                
+                $("#start").css("background-color", "#242c37")
+                $("#pause").css("background-color", "#242c37")
+                $("#playHover").css("visibility", "hidden")
+                $("#pauseHover").css("visibility", "hidden")
                 if (break_switch % 2 == 0) {
                     $('header').removeClass('work').addClass('session');
                     $('#display').removeClass("work").addClass('session');
@@ -64,6 +71,11 @@ $(document).ready(function(){
                 break_switch = 0
                 $('#userSession').html("25");
                 $('#userBreak').html("5");
+                $("#start").css("background-color", "#242c37")
+                $("#pause").css("background-color", "#242c37")
+                $("#playHover").css("visibility", "hidden")
+                $("#pauseHover").css("visibility", "hidden")
+
                 timer.innerHTML = '25:00' 
                 if (break_switch % 2 == 0) {
                     $('header').removeClass('work').addClass('session');
@@ -83,10 +95,15 @@ $(document).ready(function(){
     // Start button
     $(document).ready(function(){
         $("#start").click(function(){
+            $("#start").css("background-color", "#323f4e")
+            $("#pause").css("background-color", "#242c37")
+            $("#playHover").css("visibility", "visible")
+            $("#pauseHover").css("visibility", "hidden")
+
             if (running === false && pause === 0) {
                 running = true
                 var break_switch = 1
-                pomodoro(5);
+                pomodoro( parseInt($('#userSession').html()) * 60 );
             } else {
                 pause = 0;
                 running = true
@@ -97,6 +114,10 @@ $(document).ready(function(){
         $("#pause").click(function(){
             pause = 1
             running = false
+            $("#start").css("background-color", "#242c37")
+            $("#pause").css("background-color", "#323f4e")
+            $("#playHover").css("visibility", "hidden")
+            $("#pauseHover").css("visibility", "visible")
         });
 
         // Session Down Button

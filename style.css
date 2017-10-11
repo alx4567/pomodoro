@@ -8,6 +8,7 @@
 
 .container {
     width: 640px; height: 377px;
+    position: relative;
     background-color: #242c37;
     color: #fff;
     margin: 25px auto;
@@ -107,16 +108,41 @@ button {
 } 
 
 nav {
-   margin-top: 32px; 
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: #0c1521;
 }
 
 #line {
-    height: 5px; 
+    height: 5px;
+    text-align: left; 
+}
+
+#playHover, #pauseHover {
+    width: 75px; height: 5px;
+    display: inline-block;
+    background-color: white;
+    margin-right: 3px;
+    visibility: hidden;
+}
+
+#playHover {
+    margin-left: 165px;
 }
 
 #start, #pause, #stop, #refresh {
-   background-color: #323f4e; 
-   padding: 15px;
-   font-size: 18px;
-   font-family: 'Exo 2';
+    width: 75px;height: 55px;
+    background-color: #242c37; 
+    font-size: 18px;
+    font-family: 'Exo 2';
+    font-weight: 100;
+}
+
+#start:hover, #pause:hover, #stop:hover, #refresh:hover {
+    background-color:#323f4e;
+}
+
+button:focus, input:focus{
+    outline: 0;
 }
