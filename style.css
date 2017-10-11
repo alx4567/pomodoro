@@ -28,13 +28,13 @@ header {
 
 #session {
     height: 95px;
-    margin: 15px 350px 0 50px;
+    margin: 7px 350px 0 50px;
     display: inline-block
 }
 
 #break {
     display: inline-block;
-    margin-top: 15px;
+    margin-top: 7px;
 }
 
 #userSession, #userBreak {
