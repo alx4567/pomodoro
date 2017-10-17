@@ -1,167 +1,195 @@
-var break_switch = 0
-var pause = 0;
-var running = false;
+// + Fix bug when following sequence is excecuted: play -> pause -> stop
+// + Make it so that pause cant't be marked if clock isn't running
+// + Use each methode
+// + when on break state block out time changing + when clock is running block workup and breakup
+// + change all switches to true or false statements
+// + when numbers get smaller chevron moves and buttons are hard to hit and it looks weird
+// + after times run out lowest line doesn't change back to blue after stop button is pushed
+// + white hover bacground doesn't work on play when on pause and this extends to all buttons after pushing stop
+// - original stop button doesn't work whne dispaly is on 0:00.
+// - Double run functions when stoping and restarting at 0:00
+// - lacks going from stop to play
+
+
 
 $(document).ready(function(){
-    
-    function pomodoro(timeSeconds) {
-        var timer = document.getElementById("timer");
-        var seconds_start = timeSeconds
-        var user_session = $('#userSession').html();
-        var user_break = $('#userBreak').html();
+   //Flow-control variables needed for buttons inside and outside startTimer function
+   var stopResetOn = true;
+   var runningColor = true;
+   var timerRunning = false;
+   //Jquery objects needed to change colors by adding and removing classes
+   var displayAndLine = [$('header'), $('#display'), $('#line')]
+   var topText = $('#topText');
+   var bottomText = $("#bottomText");
+   //Objects for changing button background-color
+   var buttonBg = $("nav").find("button");
+   var playAndPauseLine = $("#playHover, #pauseHover");
+   var playLine = $("#playHover");
+   var pauseLine = $("#pauseHover");
+   var startButton = $("#start");
+   var pauseButton = $("#pause");
+   var stopButton = $("#stop");
+   var resetButton = $("#refresh");
+   //Objects for controlling the different time displays
+   var workDisplay = $("#workDisplay");
+   var timeDisplay = $("#timeDisplay");
+   var breakDisplay = $("#breakDisplay");
+   var workDownButton = $("#workDown")
+   var workUpButton = $("#workUp");
+   var breakDownButton = $("#breakDown");
+   var breakUpButton = $("#breakUp");
 
-    function countDown() {
-        if (pause == 0) {
-            seconds_start-- // 0
-            var minute = parseInt(seconds_start / 60);
-            var seconds = seconds_start % 60; // 1
+  function startTimer(setTimeInput) {
+      var startTime = setTimeInput;
+      var interval = setInterval(countDown, 1000);
+
+      function clearTimer() {
+          clearInterval(interval);
+      }
+
+      function countDown() {
+          if (timerRunning == true) {
+            var minute = parseInt(startTime / 60);
+            var seconds = startTime % 60;
 
             if(String(seconds).length < 2) {
                 seconds = "0" + seconds;
             }
-            
-            timer.innerHTML = minute + ":" + seconds; //1
-            
 
-            if (seconds_start <= 0) { 
-                clearInterval(interval);
-                if (break_switch % 2 == 0) {
-                    break_switch++
-                    pomodoro( parseInt(user_break) * 60 )
-                    $('header').removeClass("session").addClass('work');
-                    $('#display').removeClass("session").addClass('work');
-                    $('#line').removeClass("session").addClass('work');
-                    $('#topText').removeClass("current").addClass('next');
-                    $('#bottomText').removeClass("next").addClass('current');
+            timeDisplay.html(minute + ":" + seconds)
+            startTime--
+
+            if (startTime < 0) {
+                clearTimer();
+                startTimer(parseInt( breakDisplay.html() ));
+                if (runningColor == true) {
+                    runningColor = false;
+                    $.each(displayAndLine, function(i, element) {
+                      $(element).removeClass("workBlue").addClass("pauseRed");
+                    });
+                    topText.toggleClass("opacityOn", true);
+                    bottomText.toggleClass("opacityOn", false);
                 } else {
-                    break_switch--
-                    pomodoro( parseInt(user_session) * 60 )
-                    $('header').removeClass('work').addClass('session');
-                    $('#display').removeClass("work").addClass('session');
-                    $('#line').removeClass("work").addClass('session');
-                    $('#topText').removeClass("next").addClass('current');
-                    $('#bottomText').removeClass("current").addClass('next');
+                    runningColor = true;
+                    $.each(displayAndLine, function(i, element) {
+                      $(element).removeClass("pauseRed").addClass("workBlue");
+                    });
+                    topText.toggleClass("opacityOn", false);
+                    bottomText.toggleClass("opacityOn", true);
                 }
-                                    
-            }
+          }
 
-            
-            $("#stop").click(function(){
-                clearInterval(interval);
-                running = false
-                break_switch = 0
-                timer.innerHTML = $('#userSession').html() + ':00'
-                
-                $("#start").css("background-color", "#242c37")
-                $("#pause").css("background-color", "#242c37")
-                $("#playHover").css("visibility", "hidden")
-                $("#pauseHover").css("visibility", "hidden")
-                if (break_switch % 2 == 0) {
-                    $('header').removeClass('work').addClass('session');
-                    $('#display').removeClass("work").addClass('session');
-                    $('#topText').removeClass("next").addClass('current');
-                    $('#bottomText').removeClass("current").addClass('next');
-                } 
-            });
+            // Stop button
+            stopButton.click(function(){
+              clearTimer();
+              stopResetOn = true;
+              timerRunning = false;
 
-                    //Refresh button
-            $("#refresh").click(function(){
-                clearInterval(interval);
-                running = false
-                break_switch = 0
-                $('#userSession').html("25");
-                $('#userBreak').html("5");
-                $("#start").css("background-color", "#242c37")
-                $("#pause").css("background-color", "#242c37")
-                $("#playHover").css("visibility", "hidden")
-                $("#pauseHover").css("visibility", "hidden")
+              timeDisplay.html(workDisplay.html() + ':00');
+              buttonBg.toggleClass("whiteBackgroundOn", false)
+              playAndPauseLine.css("visibility", "hidden");
 
-                timer.innerHTML = '25:00' 
-                if (break_switch % 2 == 0) {
-                    $('header').removeClass('work').addClass('session');
-                    $('#display').removeClass("work").addClass('session');
-                    $('#topText').removeClass("next").addClass('current');
-                    $('#bottomText').removeClass("current").addClass('next');
-                } 
-            });
+              if (runningColor == false) {
+                $.each(displayAndLine, function(i, element) {
+                  $(element).removeClass("pauseRed").addClass("workBlue");
+                });
+                topText.toggleClass("opacityOn", false)
+                bottomText.toggleClass("opacityOn", true)
+              }
+          });
 
+            // resetButton
+            resetButton.click(function(){
+              stopTimer();
+              stopResetOn = true;
+              timerRunning = false;
+              timeDisplay.html("25:00");
+              breakDisplay.html("5");
+              buttonBg.toggleClass("whiteBackgroundOn", false)
+              playAndPauseLine.css("visibility", "hidden");
+
+              if (runningColor == false) {
+                $.each(displayAndLine, function(i, element) {
+                  $(element).removeClass("pauseRed").addClass("workBlue");
+                });
+                topText.toggleClass("opacityOn", false)
+                bottomText.toggleClass("opacityOn", true)
+              }
+           });
+        } //End of flow-control statement
+      }; //End of countDown function
+      }; //End of startTimer function
+
+
+      // Start button
+      startButton.click(function(){
+        startButton.toggleClass("whiteBackgroundOn", true)
+        playLine.css("visibility", "visible");
+        pauseLine.css("visibility", "hidden");
+          if (timerRunning == false && stopResetOn == true) {
+              timerRunning = true;
+              runningColor = true;
+
+              startTimer( 2 );
+          } else {
+              pauseButton.toggleClass("whiteBackgroundOn", false)
+              timerRunning = true;
+          }
+      });
+
+      //Pause button
+      pauseButton.click(function(){
+        if (timerRunning == true) {
+          timerRunning = false;
+          stopResetOn = false;
+
+          startButton.toggleClass("whiteBackgroundOn", false)
+          pauseButton.toggleClass("whiteBackgroundOn", true)
+          playLine.css("visibility", "hidden")
+          pauseLine.css("visibility", "visible")
         }
-    
-    };
+      });
 
-    var interval = setInterval(countDown, 1000);
-    };
+      // Session Down Button
+      workDownButton.click(function(){
+          var setWorkTime = workDisplay.html();
+          if (setWorkTime > 0) {
+              setWorkTime = parseInt(setWorkTime) - 1;
+              workDisplay.html(setWorkTime);
+              if (timerRunning == false) {
+                timeDisplay.html( setWorkTime + ":00" )
+              }
+          }
+      });
 
-    // Start button
-    $(document).ready(function(){
-        $("#start").click(function(){
-            $("#start").css("background-color", "#323f4e")
-            $("#pause").css("background-color", "#242c37")
-            $("#playHover").css("visibility", "visible")
-            $("#pauseHover").css("visibility", "hidden")
+      // Session Up Button
+      workUpButton.click(function(){
+         var setWorkTime = workDisplay.html();
+          if (setWorkTime < 99) {
+              setWorkTime = parseInt(setWorkTime) + 1;
+              workDisplay.html(setWorkTime);
+              if (timerRunning == false) {
+                timeDisplay.html( setWorkTime + ":00" )
+              }
+          }
+      });
 
-            if (running === false && pause === 0) {
-                running = true
-                var break_switch = 1
-                pomodoro( parseInt($('#userSession').html()) * 60 );
-            } else {
-                pause = 0;
-                running = true
-            }
-        });
+      // Break Up Button
+      breakUpButton.click(function(){
+          setBreakTime = breakDisplay.html();
+          if (setBreakTime < 99) {
+              setBreakTime = parseInt(setBreakTime) + 1;
+              breakDisplay.html(setBreakTime);
+          }
+      });
 
-        //Pause button
-        $("#pause").click(function(){
-            pause = 1
-            running = false
-            $("#start").css("background-color", "#242c37")
-            $("#pause").css("background-color", "#323f4e")
-            $("#playHover").css("visibility", "hidden")
-            $("#pauseHover").css("visibility", "visible")
-        });
+      // Break Button
+      breakDownButton.click(function(){
+          setBreakTime = breakDisplay.html();
+          if (setBreakTime > 0) {
+              setBreakTime = parseInt(setBreakTime) - 1;
+              breakDisplay.html(setBreakTime);
+          }
+      });
 
-        // Session Down Button
-        $("#sessionDown").click(function(){
-            var arrow = document.getElementById("userSession");
-            standart = arrow.innerHTML 
-            if (standart > 0) {  
-                standart = parseInt(standart) - 1;
-                arrow.innerHTML = standart
-
-                $('#timer').html( standart + ":00" )
-            }
-
-        });
-
-        // Session Up Button
-        $("#sessionUp").click(function(){
-            var arrow = document.getElementById("userSession");    
-            standart = arrow.innerHTML 
-            if (standart < 99) {                
-                standart = parseInt(standart) + 1;
-                arrow.innerHTML = standart
-                $('#timer').html( standart + ":00" )
-            }
-        });
-
-        // Break Up Button
-        $("#breakUp").click(function(){
-            var arrow = document.getElementById("userBreak");    
-            standart = arrow.innerHTML 
-            if (standart < 99) {
-                standart = parseInt(standart) + 1;
-                arrow.innerHTML = standart
-            }
-        });
-
-        // Break Button
-        $("#breakDown").click(function(){
-            var arrow = document.getElementById("userBreak");    
-            standart = arrow.innerHTML 
-            if (standart > 0) {
-                standart = parseInt(standart) - 1;
-                arrow.innerHTML = standart
-            }
-        });
-    });
 });

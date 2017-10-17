@@ -37,24 +37,29 @@ header {
     margin-top: 7px;
 }
 
-#userSession, #userBreak {
-    font-size: 48px;
+#workDisplay,
+#breakDisplay {
+  display: inline-block;
+  font-size: 48px;
+  width:60px;
 }
 
 button {
-    background: none;
-    border: none;
-    color: #fff;
+  background: none;
+  border: none;
+  color: #fff;
 }
 
-#sessionUp, #sessionDown, #breakUp, #breakDown {
-    vertical-align: top;
-    margin-top: 22px;
+#workUp,
+#workDown,
+#breakUp,
+#breakDown {
+  vertical-align: top;
+  margin-top: 22px;
 }
 
-
-
-#session, #break {
+#session,
+#break {
     float: left;
 }
 
@@ -65,7 +70,8 @@ h3 {
 }
 
 #display {
-    width: 220px; height: 220px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
     margin: -185px auto 0 auto;
     text-align: center;
@@ -89,7 +95,8 @@ h3 {
     line-height:0;
 }
 
-.session {
+/* blue */
+.workBlue {
     background-color: rgb(3, 159, 215);
     background: -webkit-linear-gradient(left, rgb(3, 159, 215) , rgb(36, 167, 161)); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(right, rgb(3, 159, 215) , rgb(36, 167, 161)); /* For Opera 11.1 to 12.0 */
@@ -97,7 +104,7 @@ h3 {
     background: linear-gradient(to right, rgb(3, 159, 215) , rgb(36, 167, 161)); /* Standard syntax */
 }
 
-.work {
+.pauseRed {
     background-color: rgb(220, 37, 59);
     background: -webkit-linear-gradient(left, rgb(220, 37, 59) , rgb(234, 88, 19)); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(right, rgb(220, 37, 59) , rgb(234, 88, 19)); /* For Opera 11.1 to 12.0 */
@@ -105,13 +112,9 @@ h3 {
     background: linear-gradient(to right, rgb(220, 37, 59) , rgb(234, 88, 19)); /* Standard syntax */
 }
 
-.current {
-    color: rgba(255, 255, 255, 1)
-} 
-
-.next {
+.opacityOn {
     color: rgba(255, 255, 255, .4)
-} 
+}
 
 nav {
     width: 100%;
@@ -125,8 +128,10 @@ nav {
     text-align: left;
 }
 
-#playHover, #pauseHover {
-    width: 75px; height: 5px;
+#playHover,
+#pauseHover {
+    width: 75px;
+    height: 5px;
     display: inline-block;
     background-color: white;
     margin-right: 3px;
@@ -137,15 +142,29 @@ nav {
     margin-left: 165px;
 }
 
-#start, #pause, #stop, #refresh {
+#start,
+#pause,
+#stop,
+#refresh {
     width: 75px;height: 55px;
-    background-color: #242c37; 
+
     font-size: 18px;
     font-family: 'Exo 2';
     font-weight: 100;
 }
 
-#start:hover, #pause:hover, #stop:hover, #refresh:hover {
+.greyBackground {
+  background-color: #242c37;
+}
+
+.whiteBackgroundOn {
+  background-color: #323f4e;
+}
+
+#start:hover,
+#pause:hover,
+#stop:hover,
+#refresh:hover {
     background-color:#323f4e;
 }
 
