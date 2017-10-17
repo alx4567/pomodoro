@@ -100,7 +100,7 @@ $(document).ready(function(){
 
             // resetButton
             resetButton.click(function(){
-              stopTimer();
+              clearTimer();
               stopResetOn = true;
               timerRunning = false;
               timeDisplay.html("25:00");
