@@ -104,6 +104,7 @@ $(document).ready(function(){
               stopResetOn = true;
               timerRunning = false;
               timeDisplay.html("25:00");
+              workDisplay.html("25")
               breakDisplay.html("5");
               buttonBg.toggleClass("whiteBackgroundOn", false)
               playAndPauseLine.css("visibility", "hidden");
@@ -130,7 +131,7 @@ $(document).ready(function(){
               timerRunning = true;
               runningColor = true;
 
-              startTimer( 2 );
+              startTimer( workDisplay.html() * 60 );
           } else {
               pauseButton.toggleClass("whiteBackgroundOn", false)
               timerRunning = true;
