@@ -1,6 +1,5 @@
 // + Fix bug when following sequence is excecuted: play -> pause -> stop
 // + Make it so that pause cant't be marked if clock isn't running
-// + Use each methode
 // + when on break state block out time changing + when clock is running block workup and breakup
 // + change all switches to true or false statements
 // + when numbers get smaller chevron moves and buttons are hard to hit and it looks weird
